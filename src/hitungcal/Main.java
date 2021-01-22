@@ -33,8 +33,12 @@ public class Main extends javax.swing.JFrame {
     HitungCal Spaghetti = new HitungCal("Spaghetti", 220, 1);
     HitungCal Lasagna = new HitungCal("Beef Lasagna", 336, 1);
     HitungCal Rendang = new HitungCal("Rendang", 195, 1);
+    HitungCal Tortila = new HitungCal("Tortilla chips",130,1);
+    HitungCal Kebab = new HitungCal("Beef Kebab",620,1);
+    HitungCal HotDog = new HitungCal("Hot Dog",242,1);
     // memasukan object kedalam array agar mudah
-    HitungCal[] makanan = { Nasi, Mie, Roti, Sarden, Tempe, Kornet, Burger, Pizza, Spaghetti, Lasagna, Rendang };
+    HitungCal[] makanan = { Nasi, Mie, Roti, Sarden, Tempe, Kornet, Burger, Pizza, Spaghetti, Lasagna, Rendang,
+                                                    Tortila,Kebab,HotDog};
     // ////////////////////////////
     Random random = new Random();
 
@@ -113,7 +117,10 @@ public class Main extends javax.swing.JFrame {
                 {8,"Chesse Pizza","1 Slice",210},
                 {9,"Spaghetti","1 Piring",220},
                 {10,"Beef Lasagna","1 Pan",336},
-                {11,"Rendang","100 gr",195}
+                {11,"Rendang","100 gr",195},
+                {12,"Tortille chips","100 gr",130},
+                {13,"Beef Kebab","1 Pcs",620},
+                {14,"Hot Dog","1 Pcs",242}
             },
             new String [] {
                 "No", "Nama", "Jumlah", "Calorie"
@@ -263,7 +270,7 @@ public class Main extends javax.swing.JFrame {
 
         // memasukan makanan kedalam array
         for (int i = 0; i < makanan.length; i++) {
-            if (makanan[i].getCalorieMakanan() <= rateKaloriUserPerMakanan) {
+            if (makanan[i].getCalorieMakanan() < rateKaloriUserPerMakanan) {
                 makananLolosSeleksi.add(makanan[i]);
             }
         }
@@ -277,67 +284,19 @@ public class Main extends javax.swing.JFrame {
             // ------------------------- masih terdapat bug di area ini
             // ------------------------
             // ArrayList<String> tampilkanMakanan = new ArrayList<String>();
-
             Set<String> set = new LinkedHashSet<String>();
-
-            while (set.size() < jumlahMakananPerHari) {
-                int rand_int2 = random.nextInt(makananLolosSeleksi.size());
-                set.add(makananLolosSeleksi.get(rand_int2).getMakanan());
-                totalCalorieMakanan += makananLolosSeleksi.get(rand_int2).getCalorieMakanan();
-            }
-
-            // Just for debugging
-            // System.out.println("Random numbers with no duplicates = "+set);
-
-            // ----------------------Algoritma agar ramdom agar tidak ada yg duplicate tapi
-            // tidak berhasil jika yang diramdom own object
-            // for(int j = 0; j < jumlahMakananPerHari ; j++){
-            // // merandom makanan yang akan di input
-            // int rand_int2 = random.nextInt(makananLolosSeleksi.size());
-            // //jika array makanan untuk ditampilkan masih kosong maka isi dahulu
-            // if(tampilkanMakanan.size() == 0){
-            // tampilkanMakanan.add(makananLolosSeleksi.get(rand_int2).getMakanan());
-            // totalCalorieMakanan +=
-            // makananLolosSeleksi.get(rand_int2).getCalorieMakanan();
-            // }
-            // //jika sudah terisi maka mengecek apakah random input sudah ada di element
-            // array sebelumnya
-            // else{
-            // // melakukan perulangan isi array
-            // for(int z = 0; z < tampilkanMakanan.size();z++){
-            // //jika makanan yang dirandom dan akan dimasukan sudah ada sebelumnya maka
-            // break
-            // if( tampilkanMakanan.get(z).equals(makananLolosSeleksi.get(rand_int2))){
-            //// if( temp.get(z) == rand_int2){
-            // j--;
-            // break;
-            // }
-            // //jika array makanan sudah dicek semua dan tidak ada yang memiliki kesamaan
-            // maka input di acc
-            // else if( z == tampilkanMakanan.size() - 1){
-            // tampilkanMakanan.add(makananLolosSeleksi.get(rand_int2).getMakanan());
-            // totalCalorieMakanan +=
-            // makananLolosSeleksi.get(rand_int2).getCalorieMakanan();
-            // break;
-            // }
-            // }
-            // }
-            // }
-
-            // ------------------------- bug di area ini
-            // -------------------------------------------------
-
-            // int no = 1;
-            // for(int k = 0;k < tampilkanMakanan.size();k++){
-            // message += no + ")" + tampilkanMakanan.get(k) + " " ;
-            // no++;
-            // }
-
-            // System.out.println(message);
-            // menampilkan output
-            // menampilkan output untuk total calorie
-            lblTotalCalorie.setText(Integer.toString(totalCalorieMakanan));
-            fldKeputusan.setText("Saran Makanan : " + set);
+                while (set.size() < jumlahMakananPerHari) {
+                     int rand_int2 = random.nextInt(makananLolosSeleksi.size());
+                    set.add(makananLolosSeleksi.get(rand_int2).getMakanan());
+                    totalCalorieMakanan += makananLolosSeleksi.get(rand_int2).getCalorieMakanan();
+                }
+                if(totalCalorieMakanan <= kaloriUser){         
+                    lblTotalCalorie.setText(Integer.toString(totalCalorieMakanan));
+                    fldKeputusan.setText("Saran Makanan : " + set);
+                }else{
+                    fldKeputusan.setText("Mohon untuk hitung ulang");
+                    lblTotalCalorie.setText("");
+                }
             }
        }catch(NumberFormatException  ex){
            JOptionPane.showMessageDialog(null,"Pastikan input anda benar");
