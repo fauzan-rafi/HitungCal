@@ -237,11 +237,19 @@ public class Main extends javax.swing.JFrame {
 
     private void btnHitungActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnHitungActionPerformed
         // TODO add your handling code here:
-
-        // mendapatkan identitas user
+//        try{
+//                // mendapatkan identitas user
+//               String nama = lblNamaUser.getText();
+//        }catch(){
+//            
+//        }
+        
+        try{
+            // mendapatkan identitas user
         String nama = lblNamaUser.getText();
-        // mendapatkan limit kalori user
-        int kaloriUser = Integer.parseInt(lblLimitCalorie.getText());
+          // mendapatkan limit kalori user
+          int    kaloriUser = Integer.parseInt(lblLimitCalorie.getText());
+       
         // mendapaatkan jumlah makanan yang ingin dikonsumsi user
         int jumlahMakananPerHari = Integer.parseInt(fldJumlahMakanan.getText());
 
@@ -330,7 +338,12 @@ public class Main extends javax.swing.JFrame {
             // menampilkan output untuk total calorie
             lblTotalCalorie.setText(Integer.toString(totalCalorieMakanan));
             fldKeputusan.setText("Saran Makanan : " + set);
-        }
+            }
+       }catch(NumberFormatException  ex){
+           JOptionPane.showMessageDialog(null,"Pastikan input anda benar");
+            lblLimitCalorie.setText("");
+            fldJumlahMakanan.setText("");
+       }
 
     }// GEN-LAST:event_btnHitungActionPerformed
 
